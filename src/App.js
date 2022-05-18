@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import EmailList from "./pages/EmailList";
 import Mail from "./pages/Mail";
+import './Styles/App.scss';
 
 function App() {
   return (
