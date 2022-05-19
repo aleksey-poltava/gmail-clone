@@ -1,6 +1,6 @@
-import React from 'react'
+import '../Styles/section.scss';
 
-function Section() {
+function Section({Icon, title, color, selected}) {
   return (
     <div>Section</div>
   )
