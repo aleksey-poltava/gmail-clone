@@ -4,13 +4,16 @@ import Button from '@mui/material/Button';
 import {useForm} from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { closeSendMessage } from '../redux/features/mailSlice';
+import { addMailToDb } from '../services/database';
 
 function SendMail() {
     const {register, handleSubmit, watch, formState: { errors }} = useForm();
     const dispatch = useDispatch();
 
-    const onSubmit = (formData) => {
-        
+    const onSubmit = async (formData) => {
+        await addMailToDb(formData);
+
+        dispatch(closeSendMessage());
     }
 
   return (
@@ -22,7 +25,7 @@ function SendMail() {
         <form onSubmit={handleSubmit(onSubmit)}>
             <input                 
                 placeholder='To'
-                type='text'
+                type='email'
                 {...register('to', {required: true})} 
             />
             {errors.to && <span className='send_mail_error'>To field is required</span>}
