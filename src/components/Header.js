@@ -7,8 +7,24 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import AppsIcon from '@mui/icons-material/Apps';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Avatar } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import {logout} from '../redux/features/userSlice';
+import { getAuth, signOut } from "firebase/auth";
 
 function Header() {
+    const dispatch = useDispatch();
+    const auth = getAuth();
+
+    const logOut = () => {        
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            dispatch(logout());
+          }).catch((error) => {
+            // An error happened.
+            console.log("🚀 ~ file: Header.js ~ line 24 ~ signOut ~ error", error);
+          });
+    }
+
   return (
     <div className='header'>
         <div className='header_left'>
@@ -29,7 +45,11 @@ function Header() {
             <IconButton>
                 <NotificationsIcon />
             </IconButton>
-            <Avatar />
+            <Avatar 
+                onClick={logOut}
+                className='avatar'
+                src='https://mui.com/static/images/avatar/1.jpg'
+            />
         </div>
     </div>
   )

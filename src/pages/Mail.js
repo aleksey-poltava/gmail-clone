@@ -12,9 +12,12 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 import '../Styles/mail.scss';
 import { useNavigate } from 'react-router-dom';
+import { selectOpenMail } from '../redux/features/mailSlice';
+import {useSelector} from 'react-redux';
 
 function Mail() {
   let navigate = useNavigate();
+  const selectedMail = useSelector(selectOpenMail);
 
   function handleBack() {
     navigate("/");
@@ -61,13 +64,13 @@ function Mail() {
 
       <div className='mail_body'>
         <div className='mail_body_header'>
-          <h2>Subject</h2>
+          <h2>{selectedMail?.subject}</h2>
           <LabelImportantIcon className='mail_important' />
-          <p>Title</p>
-          <p className='mail_time'>10 PM</p>
+          <p>{selectedMail?.title}</p>
+          <p className='mail_time'>{selectedMail?.time}</p>
         </div>
         <div className='mail_message'>
-          <p>This is a message</p>
+          <p>{selectedMail?.description}</p>
         </div>
       </div>
     </div>
